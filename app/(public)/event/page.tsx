@@ -1,17 +1,7 @@
 import { BeritaCard } from "@/components/BeritaCard";
-import { createClient } from "@/lib/supabase/server";
+import { eventItems, type BeritaItem } from "@/lib/mockData";
 
-type EventItem = {
-  id: string | number;
-  slug: string;
-  judul?: string;
-  konten?: string | null;
-  thumbnail?: string | null;
-  tanggal_mulai?: string | null;
-  tanggal?: string | null;
-  created_at?: string | null;
-  lokasi?: string | null;
-};
+type EventItem = BeritaItem;
 
 export const metadata = {
   title: "Agenda & Pelatihan | GARENG GO!",
@@ -19,13 +9,7 @@ export const metadata = {
 };
 
 export default async function EventPage() {
-  const supabase = createClient();
-  const { data: items } = await supabase
-    .from("event")
-    .select("*")
-    .order("created_at", { ascending: false });
-
-  const events = items || [];
+  const events = eventItems;
 
   return (
     <div className="container mx-auto px-4 py-12">

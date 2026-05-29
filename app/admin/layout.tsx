@@ -1,16 +1,11 @@
 import Link from "next/link";
 import { LayoutDashboard, DollarSign, CalendarDays } from "lucide-react";
-import { createClient } from "@/lib/supabase/server";
 import { LogoutButton } from "@/components/LogoutButton";
 
-export default async function AdminLayout({ children }: { children: React.ReactNode }) {
-  const supabase = createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex h-screen bg-gray-100">
-      {user && (
-        <aside className="w-64 bg-white border-r border-gray-200 flex-col hidden md:flex">
+      <aside className="w-64 bg-white border-r border-gray-200 flex-col hidden md:flex">
           <div className="p-6 border-b border-gray-200">
             <Link href="/">
               <span className="text-2xl font-black text-primary-600 tracking-tight">Admin GARENG</span>
@@ -31,7 +26,6 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             <LogoutButton />
           </div>
         </aside>
-      )}
       
       <main className="flex-1 overflow-auto">
         {children}

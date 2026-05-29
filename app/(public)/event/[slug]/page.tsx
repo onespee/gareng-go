@@ -2,33 +2,25 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Calendar, ArrowLeft, MapPin } from "lucide-react";
-import { createClient } from "@/lib/supabase/server";
+import { getEventBySlug } from "@/lib/mockData";
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const supabase = createClient();
-  const { data: item } = await supabase.from("event").select("judul").eq("slug", params.slug).single();
-  
+export function generateMetadata({ params }: { params: { slug: string } }) {
+  const item = getEventBySlug(params.slug);
   if (!item) return { title: "Not Found" };
-  
+
   return {
     title: `${item.judul} | GARENG GO!`,
   };
 }
 
-export default async function EventDetailPage({ params }: { params: { slug: string } }) {
-  const supabase = createClient();
-  
-  const { data: item } = await supabase
-    .from("event")
-    .select("*")
-    .eq("slug", params.slug)
-    .single();
+export default function EventDetailPage({ params }: { params: { slug: string } }) {
+  const item = getEventBySlug(params.slug);
 
   if (!item) {
     notFound();
   }
 
-  const displayDate = item.tanggal_mulai || item.created_at;
+  const displayDate = item.tanggal_mulai || item.created_at || "";
 
   return (
     <div className="bg-gray-50 min-h-screen pb-20">
@@ -50,7 +42,7 @@ export default async function EventDetailPage({ params }: { params: { slug: stri
               
               <div className="flex items-center gap-1.5">
                 <Calendar className="w-4 h-4" />
-                <time dateTime={displayDate}>{new Date(displayDate).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}</time>
+                <time dateTime={displayDate}>{displayDate ? new Date(displayDate).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" }) : "Tanggal belum tersedia"}</time>
                 {item.tanggal_selesai && item.tanggal_selesai !== item.tanggal_mulai && (
                   <span> - {new Date(item.tanggal_selesai).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}</span>
                 )}

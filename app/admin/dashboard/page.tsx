@@ -1,14 +1,10 @@
-import { createClient } from "@/lib/supabase/server";
 import { DollarSign, CalendarDays } from "lucide-react";
 import Link from "next/link";
+import { eventItems, pembiayaanItems } from "@/lib/mockData";
 
-export default async function AdminDashboardPage() {
-  const supabase = createClient();
-  
-  const [{ count: pembiayaanCount }, { count: eventCount }] = await Promise.all([
-    supabase.from("pembiayaan").select("*", { count: "exact", head: true }),
-    supabase.from("event").select("*", { count: "exact", head: true })
-  ]);
+export default function AdminDashboardPage() {
+  const pembiayaanCount = pembiayaanItems.length;
+  const eventCount = eventItems.length;
 
   return (
     <div className="p-8">

@@ -1,8 +1,8 @@
 import { BeritaCard } from "@/components/BeritaCard";
 import { InstitutionCard } from "@/components/InstitutionCard";
 import { InstitutionCompare } from "@/components/InstitutionCompare";
-import { createClient } from "@/lib/supabase/server";
 import { financingInstitutions, ventureCapitalFirms } from "@/lib/financeData";
+import { pembiayaanItems } from "@/lib/mockData";
 
 type PembiayaanItem = {
   id: string | number;
@@ -21,13 +21,7 @@ export const metadata = {
 };
 
 export default async function PembiayaanPage() {
-  const supabase = createClient();
-  const { data: items } = await supabase
-    .from("pembiayaan")
-    .select("*")
-    .order("created_at", { ascending: false });
-
-  const pembiayaans = items || [];
+  const pembiayaans = pembiayaanItems;
 
   return (
     <div className="container mx-auto px-4 py-12">

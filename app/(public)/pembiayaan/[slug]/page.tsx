@@ -2,33 +2,25 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Calendar, ArrowLeft, ExternalLink } from "lucide-react";
-import { createClient } from "@/lib/supabase/server";
+import { getPembiayaanBySlug } from "@/lib/mockData";
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const supabase = createClient();
-  const { data: item } = await supabase.from("pembiayaan").select("judul").eq("slug", params.slug).single();
-  
+export function generateMetadata({ params }: { params: { slug: string } }) {
+  const item = getPembiayaanBySlug(params.slug);
   if (!item) return { title: "Not Found" };
-  
+
   return {
     title: `${item.judul} | GARENG GO!`,
   };
 }
 
-export default async function PembiayaanDetailPage({ params }: { params: { slug: string } }) {
-  const supabase = createClient();
-  
-  const { data: item } = await supabase
-    .from("pembiayaan")
-    .select("*")
-    .eq("slug", params.slug)
-    .single();
+export default function PembiayaanDetailPage({ params }: { params: { slug: string } }) {
+  const item = getPembiayaanBySlug(params.slug);
 
   if (!item) {
     notFound();
   }
 
-  const displayDate = item.tanggal || item.created_at;
+  const displayDate = item.tanggal || item.created_at || "";
 
   return (
     <div className="bg-gray-50 min-h-screen pb-20">
@@ -47,7 +39,7 @@ export default async function PembiayaanDetailPage({ params }: { params: { slug:
           <div className="p-8 md:p-12">
             <div className="flex items-center gap-2 text-sm text-gray-500 mb-6">
               <Calendar className="w-4 h-4" />
-              <time dateTime={displayDate}>{new Date(displayDate).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}</time>
+              <time dateTime={displayDate}>{displayDate ? new Date(displayDate).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" }) : "Tanggal belum tersedia"}</time>
               <span className="mx-2">•</span>
               <span className="bg-primary-50 text-primary-700 px-2.5 py-0.5 rounded-full font-medium">Info Pembiayaan</span>
             </div>

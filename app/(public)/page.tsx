@@ -1,38 +1,11 @@
 import Link from "next/link";
 import { TrendingUp, CalendarDays } from "lucide-react";
 import { BeritaCard } from "@/components/BeritaCard";
-import { createClient } from "@/lib/supabase/server";
-
-type BeritaItem = {
-  id: string | number;
-  slug: string;
-  judul?: string;
-  konten?: string | null;
-  thumbnail?: string | null;
-  tanggal?: string | null;
-  tanggal_mulai?: string | null;
-  created_at?: string | null;
-};
+import { homePembiayaans, homeEvents, type BeritaItem } from "@/lib/mockData";
 
 export default async function HomePage() {
-  const supabase = createClient();
-  
-  // Fetch latest data
-  const { data: pembiayaans } = await supabase
-    .from("pembiayaan")
-    .select("*")
-    .order("created_at", { ascending: false })
-    .limit(3);
-
-  const { data: events } = await supabase
-    .from("event")
-    .select("*")
-    .order("created_at", { ascending: false })
-    .limit(3);
-
-  // Fallbacks if data fetch fails
-  const latestPembiayaan = pembiayaans || [];
-  const latestEvent = events || [];
+  const latestPembiayaan = homePembiayaans;
+  const latestEvent = homeEvents;
 
   return (
     <div>

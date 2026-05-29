@@ -1,6 +1,6 @@
-import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { Edit, Trash2, Plus } from "lucide-react";
+import { eventItems } from "@/lib/mockData";
 
 type AdminEventItem = {
   id: string | number;
@@ -10,10 +10,8 @@ type AdminEventItem = {
   lokasi?: string | null;
 };
 
-export default async function AdminEventPage() {
-  const supabase = createClient();
-  const { data: events } = await supabase.from("event").select("*").order("created_at", { ascending: false });
-  const items = events || [];
+export default function AdminEventPage() {
+  const items = eventItems;
 
   return (
     <div className="p-8">

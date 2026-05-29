@@ -1,6 +1,6 @@
-import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { Edit, Trash2, Plus } from "lucide-react";
+import { pembiayaanItems } from "@/lib/mockData";
 
 type AdminPembiayaanItem = {
   id: string | number;
@@ -10,10 +10,8 @@ type AdminPembiayaanItem = {
   created_at?: string | null;
 };
 
-export default async function AdminPembiayaanPage() {
-  const supabase = createClient();
-  const { data: pembiayaans } = await supabase.from("pembiayaan").select("*").order("created_at", { ascending: false });
-  const items = pembiayaans || [];
+export default function AdminPembiayaanPage() {
+  const items = pembiayaanItems;
 
   return (
     <div className="p-8">
