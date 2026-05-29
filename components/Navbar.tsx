@@ -30,12 +30,6 @@ export function Navbar() {
               {link.label}
             </Link>
           ))}
-          <Link
-            href="/admin/login"
-            className="text-sm font-medium text-primary-600 bg-primary-50 hover:bg-primary-100 px-4 py-2 rounded-full transition-colors"
-          >
-            Admin
-          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -60,13 +54,6 @@ export function Navbar() {
               {link.label}
             </Link>
           ))}
-          <Link
-            href="/admin/login"
-            className="block text-base font-medium text-primary-600"
-            onClick={() => setIsOpen(false)}
-          >
-            Login Admin
-          </Link>
         </div>
       )}
     </nav>
