@@ -84,10 +84,10 @@ export default async function PembiayaanPage() {
               key={item.id}
               type="pembiayaan"
               slug={item.slug}
-              title={item.judul}
-              excerpt={item.konten?.replace(/<[^>]*>?/gm, '').substring(0, 100) + "..."}
-              thumbnailUrl={item.thumbnail}
-              date={item.tanggal || item.created_at}
+              title={item.judul ?? "Untitled Info"}
+              excerpt={(item.konten ?? "").replace(/<[^>]*>?/gm, '').substring(0, 100) + "..."}
+              thumbnailUrl={item.thumbnail ?? undefined}
+              date={item.tanggal || item.created_at || ""}
             />
           ))}
         </div>

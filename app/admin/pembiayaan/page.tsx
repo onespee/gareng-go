@@ -39,7 +39,7 @@ export default async function AdminPembiayaanPage() {
               {items.length > 0 ? items.map((item: AdminPembiayaanItem) => (
                 <tr key={item.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 font-medium text-gray-900">{item.judul}</td>
-                  <td className="px-6 py-4">{new Date(item.tanggal || item.created_at).toLocaleDateString("id-ID")}</td>
+                  <td className="px-6 py-4">{new Date(item.tanggal || item.created_at || "").toLocaleDateString("id-ID")}</td>
                   <td className="px-6 py-4">{item.sumber || "-"}</td>
                   <td className="px-6 py-4 text-right">
                     <div className="flex items-center justify-end gap-3">

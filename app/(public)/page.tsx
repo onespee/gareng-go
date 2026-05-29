@@ -151,10 +151,10 @@ export default async function HomePage() {
                 key={item.id}
                 type="pembiayaan"
                 slug={item.slug}
-                title={item.judul}
+                title={item.judul ?? "Untitled Info"}
                 excerpt={item.konten?.replace(/<[^>]*>?/gm, '').substring(0, 100) + "..."}
-                thumbnailUrl={item.thumbnail}
-                date={item.tanggal || item.created_at}
+                thumbnailUrl={item.thumbnail ?? undefined}
+                date={item.tanggal || item.created_at || ""}
               />
             ))}
             {latestEvent.map((item: BeritaItem) => (
@@ -162,10 +162,10 @@ export default async function HomePage() {
                 key={item.id}
                 type="event"
                 slug={item.slug}
-                title={item.judul}
-                excerpt={item.konten?.replace(/<[^>]*>?/gm, '').substring(0, 100) + "..."}
-                thumbnailUrl={item.thumbnail}
-                date={item.tanggal_mulai || item.created_at}
+                title={item.judul ?? "Untitled Event"}
+                excerpt={(item.konten ?? "").replace(/<[^>]*>?/gm, '').substring(0, 100) + "..."}
+                thumbnailUrl={item.thumbnail ?? undefined}
+                date={item.tanggal_mulai || item.created_at || ""}
               />
             ))}
             {latestPembiayaan.length === 0 && latestEvent.length === 0 && (

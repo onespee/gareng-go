@@ -41,10 +41,10 @@ export default async function EventPage() {
               key={item.id}
               type="event"
               slug={item.slug}
-              title={item.judul}
-              excerpt={item.konten?.replace(/<[^>]*>?/gm, '').substring(0, 100) + "..."}
-              thumbnailUrl={item.thumbnail}
-              date={item.tanggal_mulai || item.created_at}
+              title={item.judul ?? "Untitled Event"}
+              excerpt={(item.konten ?? "").replace(/<[^>]*>?/gm, '').substring(0, 100) + "..."}
+              thumbnailUrl={item.thumbnail ?? undefined}
+              date={item.tanggal_mulai || item.created_at || ""}
             />
           ))}
         </div>
