@@ -25,8 +25,8 @@ export function Footer() {
           <h4 className="text-white font-semibold mb-4">Kontak</h4>
           <ul className="space-y-2 text-sm text-gray-400">
             <li>Email: halo@garenggo.id</li>
-            <li>WhatsApp: +62 812 3456 7890</li>
-            <li>Jakarta, Indonesia</li>
+            <li>WhatsApp: +62 851 6361 2553</li>
+            <li>Malang, Indonesia</li>
           </ul>
         </div>
       </div>
